@@ -173,17 +173,28 @@ body {
     font-size: 3rem;
     color: #35495e;
     font-family: Sriracha;
+
+    @media only screen and (max-width: 800px) {
+      width: 100%;
+      font-size: 2rem;
+      height: 4rem;
+    }
   }
 
   .main-box {
     margin-top: 1rem;
-    min-height: 30rem;
+    height: 30rem;
     width: 30rem;
     background-color: #35495ee7;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
     margin-bottom: 4rem;
+
+    @media only screen and (max-width: 800px) {
+      width: 90%;
+      flex: 1;
+    }
 
     .top {
       width: 100%;
@@ -203,15 +214,46 @@ body {
       flex-direction: column;
       align-items: center;
 
+      @media only screen and (max-width: 800px) {
+        height: 60vh;
+      }
+
       .display-users {
         width: 100%;
-        height: auto;
-        flex: 1;
+        margin-top: 0.5rem;
+        max-height: 15rem;
+        overflow: auto;
+        overflow-x: hidden;
         display: grid;
         grid-template-columns: 1fr 1fr;
         padding-top: 1.5rem;
         padding-bottom: 0.5rem;
         grid-row-gap: 1rem;
+
+        ::-webkit-scrollbar {
+          display: none;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+          display: none;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          display: none;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          display: none;
+        }
+
+        @media only screen and (max-width: 800px) {
+          grid-template-columns: 1fr;
+          max-height: calc(60vh - 6rem);
+          height: auto;
+        }
 
         .single-user {
           justify-self: center;
@@ -230,13 +272,20 @@ body {
 
       .display-groups {
         width: 100%;
-        height: auto;
+        max-height: 20rem;
+        overflow: auto;
+        overflow-x: hidden;
         flex: 1;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        padding-top: 1.5rem;
         padding-bottom: 0.5rem;
         grid-row-gap: 1rem;
+
+        @media only screen and (max-width: 800px) {
+          grid-template-columns: 1fr;
+          max-height: 60vh;
+          height: auto;
+        }
 
         .single-group {
           justify-self: center;

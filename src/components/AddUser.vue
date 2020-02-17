@@ -39,6 +39,10 @@ export default {
     overflow: hidden;
     display: flex;
     flex-direction: row;
+
+    @media only screen and (max-width: 800px) {
+      width: 90%;
+    }
     
     .input-box {
       flex: 5;
