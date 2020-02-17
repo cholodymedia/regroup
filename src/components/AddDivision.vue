@@ -2,7 +2,7 @@
   <div class="container">
     <div class="box">
       <div class="number">
-        <input type="number" v-model.number="division" @change="divisionChange">
+        {{divis}}
       </div>
       <div class="controls">
         <div class="up">
@@ -14,9 +14,9 @@
       </div>
     </div>
     <div class="info">
-      <span v-if="podzial && !error">Podział będzie całkowity</span>
-      <span v-if="!podzial && !error">Podział nie będzie całkowity</span>
-      <span v-if="error" class="error">Nie ma tylu ludzi!!!</span>
+      <span v-if="podzial && !toMuch">Podział będzie całkowity</span>
+      <span v-if="!podzial && !toMuch">Podział nie będzie całkowity</span>
+      <span v-if="toMuch" class="error">Nie ma tylu ludzi!!!</span>
     </div>
   </div>
 </template>
@@ -35,8 +35,12 @@ export default {
   },
   methods: {
     numberUp() {
-      this.division++;
-      this.divisionChange();
+      if(this.division != this.people) {
+        this.division++;
+        this.divisionChange();
+      } else {
+        alert("Masz za mało ludzi!!!!");
+      }
     },
     numberDown() {
       if(this.division > 1) {
@@ -56,7 +60,7 @@ export default {
         return false;
       }
     },
-    error() {
+    toMuch() {
       if(this.people < this.division) {
         return true;
       } else {
@@ -65,7 +69,7 @@ export default {
     }
   },
   created() {
-    if(this.divis != 2) {
+    if(this.divis != 1) {
       this.division = this.divis;
     }
   }
@@ -97,20 +101,11 @@ export default {
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
-    } 
-
-    input {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: none;
-      outline: none;
-      text-align: center;
-      color: white;
-      font-size: 2rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
     }
+    color: white;
+    font-size: 2rem;
+    justify-content: center;
+    align-items: center;
   }
 
   .controls {

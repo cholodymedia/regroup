@@ -15,6 +15,9 @@
         <div class="set-division" v-if="stages.stage_2">
           <AddDivision :people="people.length" :divis="division" @change="divisionChange"/>
         </div>
+        <div class="display-groups" v-if="stages.stage_3">
+          <DisplayGroup class="single-group" v-for="(group, index) in groups" :key="index" :group="group"/>
+        </div>
      </div>
      <div class="bottom">
        <div class="left">
@@ -22,7 +25,7 @@
          <div class="back" @click="previousStage" v-if="!stages.stage_1">Wstecz</div>
        </div>
        <div class="right">
-         <div class="next" @click="nextStage" v-if="!stages.stage_3">Dalej</div>
+         <div :class="nextBlock" @click="nextStage" v-if="!stages.stage_3">Dalej</div>
          <div class="re-group" @click="reGroup" v-if="stages.stage_3">Losuj Ponownie</div>
        </div>
      </div>
@@ -34,6 +37,7 @@
 import AddUser from '@/components/AddUser'
 import DisplayUser from '@/components/DisplayUser'
 import AddDivision from '@/components/AddDivision'
+import DisplayGroup from '@/components/DisplayGroup'
 
 export default {
   name: 'App',
@@ -52,7 +56,8 @@ export default {
   components: {
     AddUser,
     DisplayUser,
-    AddDivision
+    AddDivision,
+    DisplayGroup
   },
   methods: {
     addUser(name) {
@@ -119,6 +124,14 @@ export default {
     },
     reGroup() {
       this.group();
+    }
+  },
+  computed: {
+    nextBlock() {
+      return {
+        next: true,
+        block: this.people.length == 0
+      }
     }
   }
 }
@@ -214,6 +227,21 @@ body {
         flex-direction: column;
         padding-top: 2rem;
       }
+
+      .display-groups {
+        width: 100%;
+        height: auto;
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-top: 1.5rem;
+        padding-bottom: 0.5rem;
+        grid-row-gap: 1rem;
+
+        .single-group {
+          justify-self: center;
+        }
+      }
     }
 
     .bottom {
@@ -272,6 +300,13 @@ body {
           &:hover {
             background-color: #359c6e;
             cursor: pointer;
+          }
+        }
+        .block {
+          background-color: #858585;
+          &:hover {
+            background-color: #7a7a7a;
+            cursor: not-allowed;
           }
         }
         .re-group {
